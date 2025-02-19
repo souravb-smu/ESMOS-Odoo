@@ -1,7 +1,7 @@
-from odoo.tests import common
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestHelpdeskTicketMerge(common.TransactionCase):
+class TestHelpdeskTicketMerge(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -27,7 +27,7 @@ class TestHelpdeskTicketMerge(common.TransactionCase):
     def test_helpdesk_ticket_merge_with_existing_ticket(self):
         self.ticket_merge_2 = self.HelpdeskTicketMerge.with_context(
             active_ids=[self.ticket_1.id, self.ticket_2.id]
-        ).create({})
+        ).create({"user_id": False})
         self.assertFalse(self.ticket_merge_2.user_id)
         self.ticket_2.user_id = self.env.user.id
         self.ticket_merge_2.dst_ticket_id = self.ticket_2.id

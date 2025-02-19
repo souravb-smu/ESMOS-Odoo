@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import Command, _, api, fields, models
 
 
 class HelpdeskTicketMerge(models.TransientModel):
@@ -23,10 +23,13 @@ class HelpdeskTicketMerge(models.TransientModel):
         attachment_ids = self.ticket_ids.mapped("attachment_ids").ids
         user_ids = self.ticket_ids.mapped("user_ids").ids
         values = {
-            "tag_ids": [(4, tag_id) for tag_id in tag_ids],
-            "attachment_ids": [(4, attachment_id) for attachment_id in attachment_ids],
-            "user_ids": [(4, user_id) for user_id in user_ids],
+            "tag_ids": [Command.link(tag_id) for tag_id in tag_ids],
+            "attachment_ids": [
+                Command.link(attachment_id) for attachment_id in attachment_ids
+            ],
+            "user_ids": [Command.link(user_id) for user_id in user_ids],
         }
+
         values["user_id"] = self.user_id.id
         if self.create_new_ticket:
             partner_ids = self.ticket_ids.mapped("partner_id")
@@ -102,7 +105,7 @@ class HelpdeskTicketMerge(models.TransientModel):
         assigned_tickets = selected_tickets.filtered(lambda ticket: ticket.user_id)
         result.update(
             {
-                "ticket_ids": selected_tickets.ids,
+                "ticket_ids": [Command.set(selected_tickets.ids)],
                 "user_id": assigned_tickets and assigned_tickets[0].user_id.id or False,
                 "dst_helpdesk_team_id": selected_tickets[0].team_id.id,
                 "dst_ticket_id": selected_tickets[0].id,
@@ -124,4 +127,9 @@ class HelpdeskTicketMerge(models.TransientModel):
         subject = "Merge helpdesk ticket"
         body = _(f"This helpdesk ticket has been merged {way} {ticket_numbers}")
 
-        ticket.message_post(body=body, subject=subject, content_subtype="plaintext")
+        ticket.message_post(
+            body=body,
+            subject=subject,
+            message_type="comment",
+            subtype_id=self.env.ref("mail.mt_comment").id,
+        )
