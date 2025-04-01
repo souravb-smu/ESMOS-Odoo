@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [helpdesk_mgmt_crm](helpdesk_mgmt_crm/) | 17.0.1.0.1 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Links helpdesk tickets with leads
 [helpdesk_mgmt_project](helpdesk_mgmt_project/) | 17.0.1.0.1 |  | Add the option to select project in the tickets.
 [helpdesk_mgmt_sale](helpdesk_mgmt_sale/) | 17.0.1.0.1 |  | Add the option to select project in the sale orders.
+[helpdesk_mgmt_stage_validation](helpdesk_mgmt_stage_validation/) | 17.0.1.0.0 |  | Validate input data when reaching a Helpdesk Ticket stage
 
 [//]: # (end addons)
 
