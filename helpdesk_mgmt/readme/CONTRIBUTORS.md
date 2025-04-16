@@ -25,5 +25,6 @@
   - Vicent Cubells
 - [Solvos](https://www.solvos.es):
   - David Alonso
+  - Dante Pereyra
 - [XCG Consulting](https://xcg-consulting.fr):
   - Houzéfa Abbasbhay
