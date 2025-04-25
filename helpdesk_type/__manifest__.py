@@ -15,6 +15,8 @@
         "views/helpdesk_ticket_type.xml",
         "views/helpdesk_ticket_team.xml",
         "views/helpdesk_ticket.xml",
+        "views/res_config_settings_views.xml",
+        "views/helpdesk_ticket_templates.xml",
     ],
     "demo": ["demo/helpdesk_type_demo.xml"],
     "application": False,
